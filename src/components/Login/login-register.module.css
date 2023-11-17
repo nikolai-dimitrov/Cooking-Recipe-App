@@ -1,0 +1,85 @@
+.login {
+    /* width: 45%;
+    margin: 0 auto;
+    background: white; */
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+.register {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+.container {
+    /* width: 25%; */
+    margin: 0 auto;
+    /* background: white; */
+    background: #ffffffd9;
+    padding: 20px;
+    border-radius: 6px;
+    max-width: 350px;
+}
+.auth__form {
+
+}
+.register__form {
+    background-color: red;
+}
+.form__group {
+    margin-bottom: 15px;
+}
+.form__group input {
+    padding: 10px 6px;
+    width: 100%;
+    /* outline-color: #ca4b00; */
+}
+
+.form__group p a {
+    margin-left: 5px;
+}
+.container h1 {
+    color: black;
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+.container p {
+    padding-left: 2px;
+    margin-bottom: 20px;
+}
+.form__group a {
+    text-decoration: none;
+}
+.btn {
+    width: 100%;
+    background: #c5c3c3;
+
+    border-radius: 8px;
+    border: 1px solid #c5c3c3;
+    padding: 11px 10px;
+}
+
+.btn:hover {
+    color: #ca4b00 !important;
+}
+
+.item1 {
+    grid-area: firstName;
+}
+.item2 {
+    grid-area: lastName;
+}
+.item3 {
+    grid-area: email;
+}
+.item4 {
+    grid-area: password;
+}
+.item5 {
+    grid-area: rePass;
+}
+.item6 {
+    grid-area: email;
+}
