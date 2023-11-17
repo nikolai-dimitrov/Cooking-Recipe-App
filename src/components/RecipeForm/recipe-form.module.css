@@ -1,0 +1,28 @@
+.form__group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+.form__group label {
+    margin-bottom: 4px;
+}
+.form__group input {
+    padding: 10px 6px;
+}
+.form__group select {
+    padding: 10px 6px;
+}
+.form__group textarea {
+    padding: 10px 6px;
+}
+
+.btn {
+    width: 100%;
+    background: #c5c3c3;
+    border-radius: 8px;
+    border: 1px solid #c5c3c3;
+    padding: 11px 10px;
+}
+.btn:hover {
+    color: #ca4b00 !important;
+}
