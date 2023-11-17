@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
 import { Header } from "./components/Header/Header";
 import { Home } from "./components/Home/Home";
 import { OurRecipes } from "./components/OurRecipes/OurRecipes";
@@ -17,7 +18,7 @@ import "./App.css";
 
 function App() {
     return (
-        <>
+        <AuthProvider>
             <Header />
             <main id="main-content">
                 <Routes>
@@ -33,7 +34,6 @@ function App() {
                         path="/recipes/details/:recipeId"
                         element={<RecipeDetails />}
                     />
-
                     <Route path="/about-us" element={<About />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/login" element={<Login />} />
@@ -43,7 +43,7 @@ function App() {
                 </Routes>
             </main>
             <Footer />
-        </>
+        </AuthProvider>
     );
 }
 
