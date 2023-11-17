@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "./login-register.module.css";
 export const Login = () => {
     return (
@@ -26,7 +27,7 @@ export const Login = () => {
                     <div className={styles.form__group}>
                         <p>
                             New to Cooking Recipes?
-                            <a href="/register">Join now</a>
+                            <Link to="/register">Join now</Link>
                         </p>
                     </div>
                     <button className={styles.btn}>Sign In</button>

@@ -22,11 +22,21 @@
     border-radius: 6px;
     max-width: 350px;
 }
-.auth__form {
-
+.auth__form .auth_error {
+    color: red;
+    margin: 5px 0 0 0 ;
 }
 .register__form {
-    background-color: red;
+    display: grid;
+    column-gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+        "firstName lastName"
+        "email email"
+        "password password"
+        "rePass rePass"
+        "anchor anchor"
+        "btn btn";
 }
 .form__group {
     margin-bottom: 15px;
@@ -34,7 +44,6 @@
 .form__group input {
     padding: 10px 6px;
     width: 100%;
-    /* outline-color: #ca4b00; */
 }
 
 .form__group p a {
@@ -80,6 +89,10 @@
 .item5 {
     grid-area: rePass;
 }
+
 .item6 {
-    grid-area: email;
+    grid-area: anchor;
+}
+.item7 {
+    grid-area: btn;
 }
