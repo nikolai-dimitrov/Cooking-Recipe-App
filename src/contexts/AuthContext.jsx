@@ -1,25 +1,51 @@
 import { createContext } from "react";
-
+import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { authServiceFactory } from "../services/authService";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const loginSubmitHandler = (formValues) => {
-        console.log(formValues);
+    const [user, setUser] = useLocalStorage("user", {});
+    const navigate = useNavigate();
+    const authService = authServiceFactory();
+    //TODO: Validation and error handling
+    const loginSubmitHandler = async (formValues) => {
+        let result = await authService.login(formValues);
+        const { accessToken, email, _id } = { ...result };
+
+        setUser({
+            accessToken,
+            email,
+            _id,
+        });
+        navigate("/");
     };
 
-    const registerSubmitHandler = (formValues) => {
-        console.log(formValues);
+    //TODO: Validation and error handling
+    const registerSubmitHandler = async (formValues) => {
+        let result = await authService.register(formValues);
+        const { accessToken, email, _id } = { ...result };
+        setUser({
+            accessToken,
+            email,
+            _id,
+        });
+        navigate("/");
     };
-    // 1. make requester
-    // 2. save user in auth provider state.
-    // 3. pass user into components and change navigation
-    // 4. Save user into local storage with useLocalStorage hook.
-    // 5. use user token in requester for authorization when needed.
-    // 6. create logout functionality
-    // ---- Auth should be ready to use ----
+
+    const logoutHandler = () => {
+        authService.logout();
+        setUser({});
+    };
+
     const authContext = {
         loginSubmitHandler,
         registerSubmitHandler,
+        logoutHandler,
+        token: user.accessToken,
+        email: user.email,
+        _id: user.id,
+        isAuthenticated: !!user.accessToken,
     };
 
     return (
