@@ -8,7 +8,7 @@ export const RecipeCreate = () => {
                 <p className={styles.form__subtitle}>
                     Share your recipes with us
                 </p>
-                <RecipeForm btnName={'Create'}/>
+                <RecipeForm btnName={"Create"} />
             </div>
         </section>
     );
