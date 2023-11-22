@@ -1,0 +1,41 @@
+.card {
+    background: white;
+    display: flex;
+    padding: 10px;
+    width: 32%;
+}
+
+.card__body {
+    width: 67%;
+}
+
+.card__title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.image__container {
+    /* width: 50px; */
+    height: 118px;
+    width: 32%;
+    margin-right: 10px;
+}
+.card__image {
+    height: 100%;
+    width: 100%;
+}
+.card__desc {
+    margin-bottom: 10px;
+}
+.card__desc p {
+    font-weight: 100;
+    margin-bottom: 7px;
+}
+.card__desc p span {
+    font-weight: 600;
+}
+.card__btn {
+    text-decoration: none;
+    color: #ca4b00 ;
+}
