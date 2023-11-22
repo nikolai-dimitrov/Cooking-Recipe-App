@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
+import { RecipeContextLayout } from "./contexts/RecipeContext";
 import { Header } from "./components/Header/Header";
 import { Home } from "./components/Home/Home";
 import { OurRecipes } from "./components/OurRecipes/OurRecipes";
@@ -22,20 +23,25 @@ function App() {
             <Header />
             <main id="main-content">
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/our-recipes" element={<OurRecipes />} />
-                    {/* <Route path="/api-recipes" element={<Home />} /> */}
-                    <Route path="/recipes/create" element={<RecipeCreate />} />
-                    <Route
-                        path="/recipes/edit/:recipeId"
-                        element={<RecipeEdit />}
-                    />
-                    <Route
-                        path="/recipes/details/:recipeId"
-                        element={<RecipeDetails />}
-                    />
+                    <Route element={<RecipeContextLayout />}>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/our-recipes" element={<OurRecipes />} />
+                        {/* <Route path="/api-recipes" element={<Home />} /> */}
+                        <Route
+                            path="/recipes/create"
+                            element={<RecipeCreate />}
+                        />
+                        <Route
+                            path="/recipes/edit/:recipeId"
+                            element={<RecipeEdit />}
+                        />
+                        <Route
+                            path="/recipes/details/:recipeId"
+                            element={<RecipeDetails />}
+                        />
+                        <Route path="/profile" element={<Profile />} />
+                    </Route>
                     <Route path="/about-us" element={<About />} />
-                    <Route path="/profile" element={<Profile />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/logout" element={<Logout />} />
