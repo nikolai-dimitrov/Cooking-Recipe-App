@@ -1,7 +1,10 @@
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 import Dropdown from "react-bootstrap/Dropdown";
 import styles from "./header.module.css";
 import { Link, NavLink } from "react-router-dom";
 export const Header = () => {
+    const { isAuthenticated } = useContext(AuthContext);
     return (
         <header>
             <div className={styles.header__logo_container}>
@@ -47,17 +50,20 @@ export const Header = () => {
                             </div>
                         </Dropdown.Menu>
                     </Dropdown>
-                    <li className={styles.nav__item}>
-                        <NavLink
-                            to="/recipes/create"
-                            className={({ isActive }) => {
-                                let x = isActive ? `${styles.active}` : "";
-                                return `${styles.nav__link} ${x}`;
-                            }}
-                        >
-                            Create Recipe
-                        </NavLink>
-                    </li>
+                    {isAuthenticated && (
+                        <li className={styles.nav__item}>
+                            <NavLink
+                                to="/recipes/create"
+                                className={({ isActive }) => {
+                                    let x = isActive ? `${styles.active}` : "";
+                                    return `${styles.nav__link} ${x}`;
+                                }}
+                            >
+                                Create Recipe
+                            </NavLink>
+                        </li>
+                    )}
+
                     <li className={styles.nav__item}>
                         <NavLink
                             to="/about-us"
@@ -70,51 +76,67 @@ export const Header = () => {
                         </NavLink>
                     </li>
                     {/* If authenticated */}
-                    {/* <li className={styles.nav__item}>
-                        <NavLink
-                            to="/profile"
-                            className={({ isActive }) => {
-                                let x = isActive ? `${styles.active}` : "";
-                                return `${styles.nav__link} ${x}`;
-                            }}
-                        >
-                            Profile
-                        </NavLink>
-                    </li> */}
-                    {/* <li className={styles.nav__item}>
-                        <NavLink
-                            to="/logout"
-                            className={({ isActive }) => {
-                                let x = isActive ? `${styles.active}` : "";
-                                return `${styles.nav__link} ${x}`;
-                            }}
-                        >
-                            Logout
-                        </NavLink>
-                    </li> */}
-                    {/* else */}
-                    <li className={styles.nav__item}>
-                        <NavLink
-                            to="/login"
-                            className={({ isActive }) => {
-                                let x = isActive ? `${styles.active}` : "";
-                                return `${styles.nav__link} ${x}`;
-                            }}
-                        >
-                            Login
-                        </NavLink>
-                    </li>
-                    <li className={styles.nav__item}>
-                        <NavLink
-                            to="/register"
-                            className={({ isActive }) => {
-                                let x = isActive ? `${styles.active}` : "";
-                                return `${styles.nav__link} ${x}`;
-                            }}
-                        >
-                            Register
-                        </NavLink>
-                    </li>
+                    {isAuthenticated && (
+                        <>
+                            {" "}
+                            <li className={styles.nav__item}>
+                                <NavLink
+                                    to="/profile"
+                                    className={({ isActive }) => {
+                                        let x = isActive
+                                            ? `${styles.active}`
+                                            : "";
+                                        return `${styles.nav__link} ${x}`;
+                                    }}
+                                >
+                                    Profile
+                                </NavLink>
+                            </li>
+                            <li className={styles.nav__item}>
+                                <NavLink
+                                    to="/logout"
+                                    className={({ isActive }) => {
+                                        let x = isActive
+                                            ? `${styles.active}`
+                                            : "";
+                                        return `${styles.nav__link} ${x}`;
+                                    }}
+                                >
+                                    Logout
+                                </NavLink>
+                            </li>
+                        </>
+                    )}
+                    {!isAuthenticated && (
+                        <>
+                            <li className={styles.nav__item}>
+                                <NavLink
+                                    to="/login"
+                                    className={({ isActive }) => {
+                                        let x = isActive
+                                            ? `${styles.active}`
+                                            : "";
+                                        return `${styles.nav__link} ${x}`;
+                                    }}
+                                >
+                                    Login
+                                </NavLink>
+                            </li>
+                            <li className={styles.nav__item}>
+                                <NavLink
+                                    to="/register"
+                                    className={({ isActive }) => {
+                                        let x = isActive
+                                            ? `${styles.active}`
+                                            : "";
+                                        return `${styles.nav__link} ${x}`;
+                                    }}
+                                >
+                                    Register
+                                </NavLink>
+                            </li>
+                        </>
+                    )}
                 </ul>
             </nav>
         </header>
