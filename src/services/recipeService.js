@@ -8,8 +8,13 @@ export const recipeServiceFactory = () => {
         return response;
     };
 
+    const getOne = async (recipeId) => {
+        let response = await request.get(`${baseUrl}/${recipeId}`);
+        return response;
+    };
+
+    //TODO: In form format data etc... here only send data to the server.
     const create = async (data) => {
-        //TODO: In form format data etc... here only send data to the server.
         let ingredients = stringFormatter.fromStringToObject(data);
         data = { ...data, ingredients: ingredients };
 
@@ -17,8 +22,23 @@ export const recipeServiceFactory = () => {
         return response;
     };
 
+    const edit = async (recipeId, data) => {
+        let ingredients = stringFormatter.fromStringToObject(data);
+        data = { ...data, ingredients: ingredients };
+
+        const response = await request.put(`${baseUrl}/${recipeId}`, data);
+        return response;
+    };
+
+    const remove = async (recipeId) => {
+        let response = await request.remove(`${baseUrl}/${recipeId}`);
+        return response;
+    };
     return {
         getAll,
+        getOne,
         create,
+        edit,
+        remove,
     };
 };
