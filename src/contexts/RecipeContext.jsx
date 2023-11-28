@@ -34,13 +34,14 @@ export const RecipeProvider = ({ children }) => {
         navigate("/our-recipes");
     };
 
-    const reviewsCreateHandler = async (recipeId, userId) => {
+    const reviewsAlreadyViewedHandler = async (recipeId, userId) => {
         const hasReviewed = await reviewService.hasAlreadyReviewed(
             recipeId,
             userId
         );
         if (!hasReviewed) {
             await reviewService.create(recipeId, userId);
+            return true;
         }
     };
 
@@ -48,7 +49,7 @@ export const RecipeProvider = ({ children }) => {
         recipeCreateHandler,
         recipeEditHandler,
         recipeDeleteHandler,
-        reviewsCreateHandler,
+        reviewsAlreadyViewedHandler,
         recipes,
     };
     return (

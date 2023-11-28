@@ -9,14 +9,38 @@ import styles from "./recipe-details.module.css";
 
 export const RecipeDetails = () => {
     const [recipe, setRecipe] = useState({});
-    const { user, isAuthenticated } = useContext(AuthContext);
-    const { reviewsCreateHandler } = useContext(RecipeContext);
+    const [reviewsNum, setReviewsNum] = useState(0);
     const [showRecipeDelete, setShowRecipeDelete] = useState(false);
+
+    const { user, isAuthenticated } = useContext(AuthContext);
+    const { reviewsAlreadyViewedHandler } = useContext(RecipeContext);
+
     const recipeService = recipeServiceFactory();
     const reviewService = reviewServiceFactory();
+
     const { recipeId } = useParams();
     let formattedIngredients = [];
 
+    useEffect(() => {
+        if (isAuthenticated) {
+            const created = reviewsAlreadyViewedHandler(
+                recipeId,
+                user._id
+            ).then((created) => {
+                if (created) {
+                    setReviewsNum((state) => (state += 1));
+                }
+            });
+        }
+        Promise.all([
+            recipeService.getOne(recipeId),
+            reviewService.getReviewsCount(recipeId),
+        ]).then(([recipeData, reviews]) => {
+            const recipeObj = { ...recipeData, reviews };
+            setRecipe(recipeObj);
+            setReviewsNum(Number(reviews));
+        });
+    }, [recipeId]);
     const showDeleteModal = () => {
         setShowRecipeDelete(true);
     };
@@ -25,26 +49,13 @@ export const RecipeDetails = () => {
         setShowRecipeDelete(false);
     };
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            reviewsCreateHandler(recipeId, user._id);
-        }
-        Promise.all([
-            recipeService.getOne(recipeId),
-            reviewService.getReviewsCount(recipeId),
-        ]).then(([recipeData, reviews]) => {
-            const recipeObj = { ...recipeData, reviews };
-            setRecipe(recipeObj);
-        });
-    }, [recipeId]);
-
     const isOwner = recipe._ownerId == user._id;
     formattedIngredients = recipe.ingredients
         ? Object.entries(recipe.ingredients).map((k) => {
               return `${k[0]}: ${k[1]}`;
           })
         : [];
-    // console.log(recipe)
+
     return (
         <section className={styles.recipe}>
             {showRecipeDelete && (
@@ -55,7 +66,8 @@ export const RecipeDetails = () => {
                 <ul className={styles.recipe__data}>
                     <li>3.4 Rating</li>
                     <li>10 Total Ratings</li>
-                    <li>{recipe.reviews} Reviews</li>
+                    {/* <li>{recipe.reviews} Reviews</li> */}
+                    <li>{reviewsNum} Reviews</li>
                 </ul>
                 <p className={styles.card__desc}>{recipe.description}</p>
                 <div className={styles.card__author}>

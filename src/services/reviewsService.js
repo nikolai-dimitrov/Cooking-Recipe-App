@@ -11,7 +11,6 @@ export const reviewServiceFactory = () => {
     const getReviewsCount = async (recipeId) => {
         const searchQuery = encodeURIComponent(`recipeId="${recipeId}"`);
         const result = await request.get(`${baseUrl}?where=${searchQuery}`);
-        console.log(result.length);
         return result.length;
     };
 
