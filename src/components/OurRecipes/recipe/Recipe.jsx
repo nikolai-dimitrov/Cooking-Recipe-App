@@ -1,6 +1,7 @@
 import styles from "./recipe.module.css";
 import { Link } from "react-router-dom";
 export const Recipe = ({
+    _id,
     title,
     imageUrl,
     cookingTime,
@@ -30,7 +31,10 @@ export const Recipe = ({
                             Difficulty: <span>{difficulty}</span>
                         </p>
                     </div>
-                    <Link to="/" className={styles.card__btn}>
+                    <Link
+                        to={`/recipes/details/${_id}`}
+                        className={styles.card__btn}
+                    >
                         Read More
                     </Link>
                 </div>
