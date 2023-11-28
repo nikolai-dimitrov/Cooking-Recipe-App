@@ -18,7 +18,6 @@ const requester = async (method, token, url, data) => {
         return {};
     }
     const result = await response.json();
-    console.log(options);
 
     if (!response.ok) {
         throw result;

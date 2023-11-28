@@ -12,24 +12,30 @@ export const RecipeProvider = ({ children }) => {
     useEffect(() => {
         recipeService.getAll().then((result) => setRecipes(result));
     }, []);
-
     //Handlers
     const recipeCreateHandler = async (data) => {
         let recipe = await recipeService.create(data);
         setRecipes((state) => [...state, recipe]);
-        navigate(`/recipes/details/:${recipe._id}`);
+        navigate("/our-recipes");
     };
 
-    const recipeEditHandler = (data) => {
-        // let ingredients = stringFormatter.fromObjectToString(data.ingredients);
-        // data = { ...data, ingredients: ingredients };
+    const recipeEditHandler = async (data, recipeId) => {
+        let recipe = await recipeService.edit(recipeId, data);
+        setRecipes((state) => [...state, recipe]);
+        navigate(`/recipes/details/${recipe._id}`);
+    };
+    const recipeDeleteHandler = async (recipeId) => {
+        await recipeService.remove(recipeId);
+        setRecipes((state) => state.filter((r) => r._id !== recipeId));
+        navigate("/our-recipes");
     };
 
     const recipeContextValue = {
         recipeCreateHandler,
+        recipeEditHandler,
+        recipeDeleteHandler,
         recipes,
     };
-    console.log(recipes);
     return (
         //
         <RecipeContext.Provider value={recipeContextValue}>

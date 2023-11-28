@@ -1,23 +1,31 @@
 import styles from "./recipe-form.module.css";
-import { useContext } from "react";
-import { RecipeContext } from "../../contexts/RecipeContext";
+import { useContext, useEffect } from "react";
+// import { RecipeContext } from "../../contexts/RecipeContext";
 import { useForm } from "../../hooks/useForm";
-export const RecipeForm = ({ btnName }) => {
-    const { recipeCreateHandler } = useContext(RecipeContext);
-    const { formValues, onChange, onSubmit } = useForm(
-        {
-            title: "",
-            cookingTime: "",
-            portions: "",
-            difficulty: "Easy",
-            imageUrl: "",
-            ingredients: "",
-            description: "",
-        },
-        recipeCreateHandler
+export const RecipeForm = ({
+    btnName,
+    initialForm,
+    formSubmitHandler,
+    recipeId,
+}) => {
+    // const { recipeCreateHandler } = useContext(RecipeContext);
+
+    const { formValues, onChange, onSubmit, changeInitialValues } = useForm(
+        initialForm,
+        formSubmitHandler
+        // recipeCreateHandler
     );
+
+    useEffect(() => {
+        changeInitialValues(initialForm);
+    }, [initialForm]);
+
     return (
-        <form action="" className={styles.create__form} onSubmit={onSubmit}>
+        <form
+            action=""
+            className={styles.create__form}
+            onSubmit={(event) => onSubmit(event, recipeId)}
+        >
             <div className={styles.form__group}>
                 <label htmlFor="title">Title</label>
                 <input
