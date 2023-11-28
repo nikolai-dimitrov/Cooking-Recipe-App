@@ -1,14 +1,19 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams, Link, Routes, Route } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
+import { RecipeContext } from "../../contexts/RecipeContext";
 import { recipeServiceFactory } from "../../services/recipeService";
+import { reviewServiceFactory } from "../../services/reviewsService";
 import { RecipeDelete } from "../RecipeDelete/RecipeDelete";
 import styles from "./recipe-details.module.css";
+
 export const RecipeDetails = () => {
     const [recipe, setRecipe] = useState({});
     const { user, isAuthenticated } = useContext(AuthContext);
+    const { reviewsCreateHandler } = useContext(RecipeContext);
     const [showRecipeDelete, setShowRecipeDelete] = useState(false);
     const recipeService = recipeServiceFactory();
+    const reviewService = reviewServiceFactory();
     const { recipeId } = useParams();
     let formattedIngredients = [];
 
@@ -21,7 +26,16 @@ export const RecipeDetails = () => {
     };
 
     useEffect(() => {
-        recipeService.getOne(recipeId).then((res) => setRecipe(res));
+        if (isAuthenticated) {
+            reviewsCreateHandler(recipeId, user._id);
+        }
+        Promise.all([
+            recipeService.getOne(recipeId),
+            reviewService.getReviewsCount(recipeId),
+        ]).then(([recipeData, reviews]) => {
+            const recipeObj = { ...recipeData, reviews };
+            setRecipe(recipeObj);
+        });
     }, [recipeId]);
 
     const isOwner = recipe._ownerId == user._id;
@@ -30,7 +44,7 @@ export const RecipeDetails = () => {
               return `${k[0]}: ${k[1]}`;
           })
         : [];
-
+    // console.log(recipe)
     return (
         <section className={styles.recipe}>
             {showRecipeDelete && (
@@ -41,7 +55,7 @@ export const RecipeDetails = () => {
                 <ul className={styles.recipe__data}>
                     <li>3.4 Rating</li>
                     <li>10 Total Ratings</li>
-                    <li>2 Reviews</li>
+                    <li>{recipe.reviews} Reviews</li>
                 </ul>
                 <p className={styles.card__desc}>{recipe.description}</p>
                 <div className={styles.card__author}>
@@ -57,7 +71,7 @@ export const RecipeDetails = () => {
                     {isOwner && (
                         <button onClick={showDeleteModal}>Delete</button>
                     )}
-                    <button>Rate</button>
+                    {isAuthenticated && <button>Rate</button>}
                 </div>
                 <div className={styles.card__body}>
                     <img

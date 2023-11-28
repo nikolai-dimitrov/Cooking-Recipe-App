@@ -2,11 +2,14 @@ import { createContext, useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 // import * as stringFormatter from "../utils/stringFormatter";
 import { recipeServiceFactory } from "../services/recipeService";
+import { reviewServiceFactory } from "../services/reviewsService";
 
 export const RecipeContext = createContext();
 export const RecipeProvider = ({ children }) => {
     const [recipes, setRecipes] = useState([]);
     const recipeService = recipeServiceFactory();
+    const reviewService = reviewServiceFactory();
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,16 +27,28 @@ export const RecipeProvider = ({ children }) => {
         setRecipes((state) => [...state, recipe]);
         navigate(`/recipes/details/${recipe._id}`);
     };
+
     const recipeDeleteHandler = async (recipeId) => {
         await recipeService.remove(recipeId);
         setRecipes((state) => state.filter((r) => r._id !== recipeId));
         navigate("/our-recipes");
     };
 
+    const reviewsCreateHandler = async (recipeId, userId) => {
+        const hasReviewed = await reviewService.hasAlreadyReviewed(
+            recipeId,
+            userId
+        );
+        if (!hasReviewed) {
+            await reviewService.create(recipeId, userId);
+        }
+    };
+
     const recipeContextValue = {
         recipeCreateHandler,
         recipeEditHandler,
         recipeDeleteHandler,
+        reviewsCreateHandler,
         recipes,
     };
     return (
