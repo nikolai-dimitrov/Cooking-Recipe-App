@@ -1,0 +1,93 @@
+.recipe {
+    /* background: #ffffffe8; */
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    width: 55%;
+    margin: 0 auto;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.card__title {
+    font-size: 30px;
+    color: black;
+    margin-bottom: 7px;
+}
+.recipe__data {
+    display: flex;
+    column-gap: 10px;
+    margin-bottom: 7px;
+}
+.card__desc {
+    margin-bottom: 7px;
+}
+.card__author {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+    margin-bottom: 7px;
+}
+.card__author a {
+    text-decoration: none;
+    background: #c5c3c3;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+.card__author a:hover {
+    color: #ca4b00;
+}
+.card__author button {
+    text-decoration: none;
+    background: #c5c3c3;
+    color: black;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 6px;
+}
+.card__author button:hover {
+    color: #ca4b00;
+}
+
+.author__image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.author__info {
+}
+
+.card__body {
+    display: flex;
+    column-gap: 30px;
+    align-items: flex-start;
+}
+
+.card__image {
+    height: 320px;
+    width: 65%;
+    border-radius: 12px;
+}
+.card__info {
+    width: 30%;
+    border: 1px solid gray;
+    border-radius: 12px;
+    padding: 10px;
+}
+.card__info li:last-child {
+    font-weight: 600;
+}
+.info__item {
+    margin-bottom: 7px;
+}
+.info__item ul {
+    margin-top: 7px;
+    margin-left: 10px;
+}
+
+.info__item ul li {
+    margin-bottom: 7px;
+}
