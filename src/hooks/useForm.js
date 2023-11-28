@@ -8,14 +8,19 @@ export const useForm = (initialState, submitHandler) => {
         }));
     };
 
-    const onSubmit = (event) => {
+    const onSubmit = (event, id) => {
         event.preventDefault();
-        submitHandler(formValues);
+        id ? submitHandler(formValues, id) : submitHandler(formValues);
+    };
+
+    const changeInitialValues = (values) => {
+        setFormValues(values);
     };
 
     return {
         formValues,
         onChange,
         onSubmit,
+        changeInitialValues,
     };
 };
