@@ -3,7 +3,6 @@ import { requestFactory } from "../utils/requester";
 export const reviewServiceFactory = () => {
     const request = requestFactory();
     const create = async (recipeId, userId) => {
-        console.log(recipeId, "from service");
         const data = { recipeId, userId };
         const result = await request.post(`${baseUrl}`, data);
     };

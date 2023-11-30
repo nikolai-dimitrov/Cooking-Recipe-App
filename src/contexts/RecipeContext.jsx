@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-// import * as stringFormatter from "../utils/stringFormatter";
 import { recipeServiceFactory } from "../services/recipeService";
 import { reviewServiceFactory } from "../services/reviewsService";
 
@@ -15,6 +14,7 @@ export const RecipeProvider = ({ children }) => {
     useEffect(() => {
         recipeService.getAll().then((result) => setRecipes(result));
     }, []);
+
     //Handlers
     const recipeCreateHandler = async (data) => {
         let recipe = await recipeService.create(data);
@@ -52,6 +52,7 @@ export const RecipeProvider = ({ children }) => {
         reviewsAlreadyViewedHandler,
         recipes,
     };
+    console.log(recipes)
     return (
         //
         <RecipeContext.Provider value={recipeContextValue}>

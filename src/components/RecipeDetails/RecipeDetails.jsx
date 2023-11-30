@@ -4,6 +4,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { RecipeContext } from "../../contexts/RecipeContext";
 import { recipeServiceFactory } from "../../services/recipeService";
 import { reviewServiceFactory } from "../../services/reviewsService";
+import { ratingServiceFactory } from "../../services/ratingService";
 import { RecipeDelete } from "../RecipeDelete/RecipeDelete";
 import styles from "./recipe-details.module.css";
 
@@ -13,14 +14,19 @@ export const RecipeDetails = () => {
     const [showRecipeDelete, setShowRecipeDelete] = useState(false);
 
     const { user, isAuthenticated } = useContext(AuthContext);
-    const { reviewsAlreadyViewedHandler } = useContext(RecipeContext);
+    const {
+        reviewsAlreadyViewedHandler,
+        // recipeLikeHandler,
+        // recipeDisLikeHandler,
+    } = useContext(RecipeContext);
 
     const recipeService = recipeServiceFactory();
     const reviewService = reviewServiceFactory();
+    const ratingService = ratingServiceFactory();
 
     const { recipeId } = useParams();
     let formattedIngredients = [];
-
+    //TODO: Reviews into state like ratings.Not as number ,but as list with data.
     useEffect(() => {
         if (isAuthenticated) {
             const created = reviewsAlreadyViewedHandler(
@@ -35,12 +41,14 @@ export const RecipeDetails = () => {
         Promise.all([
             recipeService.getOne(recipeId),
             reviewService.getReviewsCount(recipeId),
-        ]).then(([recipeData, reviews]) => {
-            const recipeObj = { ...recipeData, reviews };
+            ratingService.getRatings(recipeId),
+        ]).then(([recipeData, reviews, ratings]) => {
+            const recipeObj = { ...recipeData, reviews, ratings };
             setRecipe(recipeObj);
             setReviewsNum(Number(reviews));
         });
     }, [recipeId]);
+
     const showDeleteModal = () => {
         setShowRecipeDelete(true);
     };
@@ -49,7 +57,20 @@ export const RecipeDetails = () => {
         setShowRecipeDelete(false);
     };
 
+    const recipeRatingHandler = async (like) => {
+        const result = await ratingService.rateRecipe(recipeId, user._id, like);
+        setRecipe((state) => ({
+            ...state,
+            ratings: [...state.ratings, result],
+        }));
+    };
+
     const isOwner = recipe._ownerId == user._id;
+    const isRated = recipe.ratings?.filter((el) => el.userId == user._id);
+
+    let likesCount = recipe.ratings?.filter((el) => el.like == true).length;
+    let disLikesCount = recipe.ratings?.filter((el) => el.like == false).length;
+
     formattedIngredients = recipe.ingredients
         ? Object.entries(recipe.ingredients).map((k) => {
               return `${k[0]}: ${k[1]}`;
@@ -64,9 +85,9 @@ export const RecipeDetails = () => {
             <div className={styles.card}>
                 <h1 className={styles.card__title}>{recipe.title}</h1>
                 <ul className={styles.recipe__data}>
-                    <li>3.4 Rating</li>
-                    <li>10 Total Ratings</li>
-                    {/* <li>{recipe.reviews} Reviews</li> */}
+                    <li>{likesCount} Likes</li>
+                    <li>{disLikesCount} Dislikes</li>
+                    <li>{recipe.ratings?.length} Total Ratings</li>
                     <li>{reviewsNum} Reviews</li>
                 </ul>
                 <p className={styles.card__desc}>{recipe.description}</p>
@@ -83,7 +104,27 @@ export const RecipeDetails = () => {
                     {isOwner && (
                         <button onClick={showDeleteModal}>Delete</button>
                     )}
-                    {isAuthenticated && <button>Rate</button>}
+                    {!isRated?.length ? (
+                        <>
+                            {isAuthenticated && (
+                                <button
+                                    onClick={() => recipeRatingHandler(true)}
+                                >
+                                    Like
+                                </button>
+                            )}
+                            {isAuthenticated && (
+                                <button
+                                    onClick={() => recipeRatingHandler(false)}
+                                >
+                                    Dislike
+                                </button>
+                            )}
+                        </>
+                    ) : (
+                        //To see liked or disliked.Were your vote.
+                        <p>Thank you!</p>
+                    )}
                 </div>
                 <div className={styles.card__body}>
                     <img
