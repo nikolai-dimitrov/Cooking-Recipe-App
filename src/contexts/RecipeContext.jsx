@@ -2,17 +2,21 @@ import { createContext, useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { recipeServiceFactory } from "../services/recipeService";
 import { reviewServiceFactory } from "../services/reviewsService";
+import { useRecipeExtraData } from "../hooks/useRecipeExtraData";
 
 export const RecipeContext = createContext();
 export const RecipeProvider = ({ children }) => {
-    const [recipes, setRecipes] = useState([]);
+    // const [recipes, setRecipes] = useState([]);
+    const [recipes, setRecipes, initialRecipesSet] = useRecipeExtraData([]);
     const recipeService = recipeServiceFactory();
     const reviewService = reviewServiceFactory();
 
     const navigate = useNavigate();
-
+    //fill data by hook into recipes like rating and other not in details component
     useEffect(() => {
-        recipeService.getAll().then((result) => setRecipes(result));
+        recipeService.getAll().then((result) => {
+            initialRecipesSet(result);
+        });
     }, []);
 
     //Handlers
@@ -52,7 +56,9 @@ export const RecipeProvider = ({ children }) => {
         reviewsAlreadyViewedHandler,
         recipes,
     };
-    console.log(recipes)
+
+    console.log(recipes);
+
     return (
         //
         <RecipeContext.Provider value={recipeContextValue}>

@@ -11,6 +11,7 @@ export const ratingServiceFactory = () => {
         const result = request.post(`${baseUrl}`, data);
         return result;
     };
+
     const getRatings = async (recipeId) => {
         const searchQuery = encodeURIComponent(`recipeId="${recipeId}"`);
         const result = await request.get(`${baseUrl}?where=${searchQuery}`);
