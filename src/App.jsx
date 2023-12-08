@@ -14,6 +14,7 @@ import { Login } from "./components/Login/Login";
 import { Register } from "./components/Register/Register";
 import { Logout } from "./components/Logout/Logout";
 import { Footer } from "./components/Footer/Footer";
+import { Unauthorized } from "./components/Unauthorized/Unauthorized";
 import { NotFound } from "./components/NotFound/NotFound";
 import "./App.css";
 
@@ -45,6 +46,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/logout" element={<Logout />} />
+                    <Route path="/unauthorized" element={<Unauthorized />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>

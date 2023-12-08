@@ -1,0 +1,83 @@
+/* Favourite section */
+.favorite {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+.favorite__card {
+    background-color: white;
+    padding: 30px;
+    width: 25%;
+    max-width: 344px;
+}
+
+.card__title {
+    font-size: 30px;
+    margin-bottom: 18px;
+}
+.card__badge {
+    letter-spacing: 2px;
+    background: #fb863f;
+    padding: 3px 11px;
+}
+
+.card__desc {
+    margin: 18px 0;
+}
+.favorite__card a {
+    text-decoration: none;
+    color: #4c4c4c;
+    letter-spacing: 1px;
+}
+/* Cooking section */
+.cooking {
+    /* display: flex; */
+}
+
+.divider {
+    padding: 25px 10px 20px 10px;
+    background-color: white;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.cooking__title {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.cooking__link {
+    letter-spacing: 1px;
+    color: #4c4c4c;
+    text-decoration: none;
+}
+.cards__wrapper {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+.image__wrapper {
+    height: 300px;
+    /* width: 100%; */
+}
+.recipe__card {
+    width: 20%;
+}
+
+.recipe__card img {
+    /* max-height: 300px; */
+    height: 100%;
+    width: 100%;
+    /* max-width: 300px; */
+    /* object-fit: contain; */
+}
+.image__wrapper div {
+    position: absolute;
+    bottom: 0px;
+    /* left: 0px; */
+    background-color: white;
+    width: 200px;
+    padding: 10px;
+}
+.card__heading {
+}

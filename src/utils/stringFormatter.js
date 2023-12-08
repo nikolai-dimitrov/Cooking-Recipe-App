@@ -16,6 +16,5 @@ export const fromObjectToString = (data) => {
     let arrayIngredients = tuplesIngredients
         .map((arr) => arr.join(" - "))
         .join("; ");
-    // console.log(asd.join('; '))
     return arrayIngredients;
 };

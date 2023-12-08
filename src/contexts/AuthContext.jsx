@@ -10,57 +10,89 @@ const defaultPicture =
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useLocalStorage("user", {});
     const [profileImg, setProfileImg] = useState(defaultPicture);
+    const [loginError, setLoginError] = useState(null);
+    const [registerError, setRegisterError] = useState(null);
+
     const navigate = useNavigate();
     const authService = authServiceFactory();
-    //TODO: Validation and error handling
+
     useEffect(() => {
         if (user._id) {
-            authService.getProfileImg(user._id).then((p) => {
-                console.log(user._id, "USER ID FETCHING");
-                if (p.length > 0) {
-                    const image = p[0].pictureUrl;
-                    setProfileImg((state) => image);
-                } else {
+            authService
+                .getProfileImg(user._id)
+                .then((p) => {
+                    if (p.length > 0) {
+                        const image = p[0].pictureUrl;
+                        setProfileImg((state) => image);
+                    } else {
+                        setProfileImg(defaultPicture);
+                    }
+                })
+                .catch((err) => {
                     setProfileImg(defaultPicture);
-                }
-            });
+                });
         }
-    }, [user, user._id]); // remove user._id
+    }, [user, user._id]);
 
     const loginSubmitHandler = async (formValues) => {
-        let result = await authService.login(formValues);
-        const { accessToken, email, _id, firstName, lastName } = { ...result };
-        setUser({
-            accessToken,
-            email,
-            firstName,
-            lastName,
-            _id,
-        });
-        navigate("/");
+        try {
+            let result = await authService.login(formValues);
+            const { accessToken, email, _id, firstName, lastName } = {
+                ...result,
+            };
+            setUser({
+                accessToken,
+                email,
+                firstName,
+                lastName,
+                _id,
+            });
+            setLoginError(null);
+
+            navigate("/");
+        } catch (e) {
+            setLoginError(e.message);
+        }
     };
 
-    //TODO: Validation and error handling
     const registerSubmitHandler = async (formValues) => {
-        let result = await authService.register(formValues);
-        const { accessToken, email, _id, firstName, lastName } = { ...result };
-        setUser({
-            accessToken,
-            email,
-            firstName,
-            lastName,
-            _id,
-        });
-        navigate("/");
+        try {
+            const { password, rePass } = formValues;
+            if (password != rePass) {
+                throw new Error("Password did not match");
+            }
+            let result = await authService.register(formValues);
+            const { accessToken, email, _id, firstName, lastName } = {
+                ...result,
+            };
+            setUser({
+                accessToken,
+                email,
+                firstName,
+                lastName,
+                _id,
+            });
+
+            setRegisterError(null);
+            navigate("/");
+        } catch (e) {
+            setRegisterError(e.message);
+        }
     };
 
     const logoutHandler = () => {
         authService.logout();
         setUser({});
     };
-    const changeProfileImgHandler = (formValues) => {
-        console.log(formValues, "AUTH CONTEXT HANDLER");
+
+    const changeProfileImgHandler = async (formValues) => {
+        const result = await authService.updateUserPicture(
+            formValues,
+            user._id
+        );
+        setProfileImg(result.pictureUrl);
     };
+
     const authContext = {
         loginSubmitHandler,
         registerSubmitHandler,
@@ -72,8 +104,10 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated: !!user.accessToken,
         user,
         profileImg,
+        loginError,
+        registerError,
     };
-    console.log(profileImg, "final log");
+
     return (
         <AuthContext.Provider value={authContext}>
             {children}

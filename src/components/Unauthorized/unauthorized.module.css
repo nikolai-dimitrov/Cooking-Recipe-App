@@ -1,0 +1,19 @@
+.unauthorized {
+    height: 75vh;
+}
+.title__wrapper {
+    padding: 30px;
+    background-color: white;
+    text-align: center;
+}
+.title {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    text-align: center;
+    border: none;
+    padding: 7px 20px;
+}

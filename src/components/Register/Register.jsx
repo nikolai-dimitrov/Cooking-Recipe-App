@@ -1,21 +1,23 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import { AuthContext } from "../../contexts/AuthContext";
 import styles from "../Login/login-register.module.css";
 
 export const Register = () => {
-    const { registerSubmitHandler } = useContext(AuthContext);
-    const { formValues, onChange, onSubmit } = useForm(
-        {
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-            rePass: "",
-        },
-        registerSubmitHandler
-    );
+    const { registerSubmitHandler, registerError } = useContext(AuthContext);
+    const { formValues, formErrors, onChange, onSubmit, validateInputHandler } =
+        useForm(
+            {
+                firstName: "",
+                lastName: "",
+                email: "",
+                password: "",
+                rePass: "",
+            },
+            registerSubmitHandler
+        );
+
     return (
         <div className={styles.layout}>
             <section className={styles.register}>
@@ -36,11 +38,14 @@ export const Register = () => {
                                 name="firstName"
                                 placeholder="First Name"
                                 onChange={onChange}
+                                onBlur={(e) => validateInputHandler(e, "auth")}
                                 value={formValues.firstName}
                             />
-                            {/* <p className={styles.auth_error}>
-                            First name should be 8 characters
-                        </p> */}
+                            {formErrors["firstName"] && (
+                                <p className={styles.auth_error}>
+                                    {formErrors["firstName"]}
+                                </p>
+                            )}
                         </div>
 
                         <div
@@ -52,11 +57,14 @@ export const Register = () => {
                                 name="lastName"
                                 placeholder="Last Name"
                                 onChange={onChange}
+                                onBlur={(e) => validateInputHandler(e, "auth")}
                                 value={formValues.lastName}
                             />
-                            {/* <p className={styles.auth_error}>
-                            Last name should be 8 characters
-                        </p> */}
+                            {formErrors["lastName"] && (
+                                <p className={styles.auth_error}>
+                                    {formErrors["lastName"]}
+                                </p>
+                            )}
                         </div>
                         <div
                             className={`${styles.form__group} ${styles.item3}`}
@@ -67,11 +75,15 @@ export const Register = () => {
                                 name="email"
                                 placeholder="Email"
                                 onChange={onChange}
+                                onBlur={(e) => validateInputHandler(e, "auth")}
                                 value={formValues.email}
                             />
-                            {/* <p className={styles.auth_error}>Email is invalid</p> */}
+                            {formErrors["email"] && (
+                                <p className={styles.auth_error}>
+                                    {formErrors["email"]}
+                                </p>
+                            )}
                         </div>
-                        {/* <p>Error</p> */}
                         <div
                             className={`${styles.form__group} ${styles.item4}`}
                         >
@@ -81,9 +93,14 @@ export const Register = () => {
                                 name="password"
                                 placeholder="Password"
                                 onChange={onChange}
+                                onBlur={(e) => validateInputHandler(e, "auth")}
                                 value={formValues.password}
                             />
-                            {/* <p className={styles.auth_error}>Password must be at least 8 characters</p> */}
+                            {formErrors["password"] && (
+                                <p className={styles.auth_error}>
+                                    {formErrors["password"]}
+                                </p>
+                            )}
                         </div>
                         <div
                             className={`${styles.form__group} ${styles.item5}`}
@@ -94,13 +111,23 @@ export const Register = () => {
                                 name="rePass"
                                 placeholder="Password"
                                 onChange={onChange}
+                                onBlur={(e) => validateInputHandler(e, "auth")}
                                 value={formValues.rePass}
                             />
-                            {/* <p className={styles.auth_error}>Password must be at least 8 characters</p> */}
+                            {formErrors["rePass"] && (
+                                <p className={styles.auth_error}>
+                                    {formErrors["rePass"]}
+                                </p>
+                            )}
                         </div>
                         <div
                             className={`${styles.form__group} ${styles.item6}`}
                         >
+                            {registerError && (
+                                <p className={styles.err__msg}>
+                                    {registerError}!
+                                </p>
+                            )}
                             <p>
                                 Already have an account?
                                 <Link to="/login">Sign in</Link>

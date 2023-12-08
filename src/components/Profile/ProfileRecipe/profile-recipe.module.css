@@ -1,0 +1,18 @@
+.card {
+    height: 100%;
+    padding: 5px;
+}
+.image__wrapper {
+    height: 80%;
+}
+
+.image__wrapper img {
+    width: 100%;
+    height: 100%;
+}
+.desc__wrapper {
+    padding: 5px 0;
+}
+.desc__wrapper h4 {
+    margin-bottom: 4px;
+}

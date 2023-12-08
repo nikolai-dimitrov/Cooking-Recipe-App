@@ -4,12 +4,25 @@ import { requestFactory } from "../utils/requester";
 export const recipeServiceFactory = () => {
     const request = requestFactory();
     const getAll = async () => {
-        let response = await request.get(baseUrl);
+        let response = await request.get(`${baseUrl}`);
+        return response;
+    };
+
+    const getRecipesPerPage = async (offSet) => {
+        let response = await request.get(
+            `${baseUrl}?offset=${offSet}&pageSize=15`
+        );
         return response;
     };
 
     const getOne = async (recipeId) => {
         let response = await request.get(`${baseUrl}/${recipeId}`);
+        return response;
+    };
+    const getUserRecipes = async (userId) => {
+        const searchQuery = encodeURIComponent(`_ownerId="${userId}"`);
+
+        const response = await request.get(`${baseUrl}?where=${searchQuery}`);
         return response;
     };
 
@@ -34,8 +47,11 @@ export const recipeServiceFactory = () => {
         let response = await request.remove(`${baseUrl}/${recipeId}`);
         return response;
     };
+
     return {
         getAll,
+        getRecipesPerPage,
+        getUserRecipes,
         getOne,
         create,
         edit,

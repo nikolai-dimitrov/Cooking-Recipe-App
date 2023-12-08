@@ -1,13 +1,31 @@
 .recipes {
     background: #ffffffe8;
-    height: 75vh;
-    padding: 20px;
+    /* height: 75vh; */
+    position: relative;
+    /* padding: 20px; */
+    padding: 20px 20px 55px 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: baseline;
+    /* align-items: baseline; */
     align-content: flex-start;
     /* justify-content: space-between; */
     row-gap: 20px;
     column-gap: 20px;
+}
+
+.pagination {
+    position: absolute;
+    bottom: 15px;
+    left: 47%;
+    /* translate: (-50%); */
+    margin: 0 auto;
+}
+.pagination button:first-child {
+    margin-right: 10px;
+}
+.pagination button {
+    border: none;
+    color: #ca4c00;
+    padding: 5px 15px;
 }

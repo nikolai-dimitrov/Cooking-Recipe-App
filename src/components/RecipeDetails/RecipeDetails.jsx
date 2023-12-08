@@ -1,32 +1,33 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams, Link, Routes, Route } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { RecipeContext } from "../../contexts/RecipeContext";
 import { recipeServiceFactory } from "../../services/recipeService";
 import { reviewServiceFactory } from "../../services/reviewsService";
 import { ratingServiceFactory } from "../../services/ratingService";
+import { authServiceFactory } from "../../services/authService";
 import { RecipeDelete } from "../RecipeDelete/RecipeDelete";
+import { NotFound } from "../NotFound/NotFound";
 import styles from "./recipe-details.module.css";
 
 export const RecipeDetails = () => {
+    const { user, isAuthenticated, profileImg } = useContext(AuthContext);
+    const { reviewsAlreadyViewedHandler } = useContext(RecipeContext);
+
     const [recipe, setRecipe] = useState({});
+    const [ownerImg, setOwnerImg] = useState([profileImg]);
     const [reviewsNum, setReviewsNum] = useState(0);
     const [showRecipeDelete, setShowRecipeDelete] = useState(false);
+    const [error, setError] = useState(null);
 
-    const { user, isAuthenticated } = useContext(AuthContext);
-    const {
-        reviewsAlreadyViewedHandler,
-        // recipeLikeHandler,
-        // recipeDisLikeHandler,
-    } = useContext(RecipeContext);
-
+    const authService = authServiceFactory();
     const recipeService = recipeServiceFactory();
     const reviewService = reviewServiceFactory();
     const ratingService = ratingServiceFactory();
 
     const { recipeId } = useParams();
     let formattedIngredients = [];
-    //TODO: Reviews into state like ratings.Not as number ,but as list with data.
+
     useEffect(() => {
         if (isAuthenticated) {
             const created = reviewsAlreadyViewedHandler(
@@ -42,12 +43,25 @@ export const RecipeDetails = () => {
             recipeService.getOne(recipeId),
             reviewService.getReviewsCount(recipeId),
             ratingService.getRatings(recipeId),
-        ]).then(([recipeData, reviews, ratings]) => {
-            const recipeObj = { ...recipeData, reviews, ratings };
-            setRecipe(recipeObj);
-            setReviewsNum(Number(reviews));
-        });
+        ])
+            .then(([recipeData, reviews, ratings]) => {
+                const recipeObj = { ...recipeData, reviews, ratings };
+                setRecipe(recipeObj);
+                setReviewsNum(Number(reviews));
+                setError(null);
+            })
+            .catch((e) => {
+                setError(e);
+            });
     }, [recipeId]);
+
+    useEffect(() => {
+        authService.getProfileImg(recipe?._ownerId).then((img) => {
+            if (img.length > 0) {
+                setOwnerImg(img[0].pictureUrl);
+            }
+        });
+    }, [recipe]);
 
     const showDeleteModal = () => {
         setShowRecipeDelete(true);
@@ -82,78 +96,87 @@ export const RecipeDetails = () => {
             {showRecipeDelete && (
                 <RecipeDelete closeDeleteModal={closeDeleteModal} {...recipe} />
             )}
-            <div className={styles.card}>
-                <h1 className={styles.card__title}>{recipe.title}</h1>
-                <ul className={styles.recipe__data}>
-                    <li>{likesCount} Likes</li>
-                    <li>{disLikesCount} Dislikes</li>
-                    <li>{recipe.ratings?.length} Total Ratings</li>
-                    <li>{reviewsNum} Reviews</li>
-                </ul>
-                <p className={styles.card__desc}>{recipe.description}</p>
-                <div className={styles.card__author}>
-                    <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png"
-                        alt=""
-                        className={styles.author__image}
-                    />
-                    <p className={styles.author__info}>Nikolay Dimitrov</p>
-                    {isOwner && (
-                        <Link to={`/recipes/edit/${recipeId}`}>Edit</Link>
-                    )}
-                    {isOwner && (
-                        <button onClick={showDeleteModal}>Delete</button>
-                    )}
-                    {!isRated?.length ? (
-                        <>
-                            {isAuthenticated && (
-                                <button
-                                    onClick={() => recipeRatingHandler(true)}
-                                >
-                                    Like
-                                </button>
-                            )}
-                            {isAuthenticated && (
-                                <button
-                                    onClick={() => recipeRatingHandler(false)}
-                                >
-                                    Dislike
-                                </button>
-                            )}
-                        </>
-                    ) : (
-                        //To see liked or disliked.Were your vote.
-                        <p>Thank you!</p>
-                    )}
-                </div>
-                <div className={styles.card__body}>
-                    <img
-                        src={recipe.imageUrl}
-                        alt=""
-                        className={styles.card__image}
-                    />
-                    <ul className={styles.card__info}>
-                        <li className={styles.info__item}>
-                            Cooking Time: {recipe.cookingTime} mins
-                        </li>
-                        <li className={styles.info__item}>
-                            Servings: {recipe.portions}
-                        </li>
-                        <li className={styles.info__item}>
-                            Difficulty: {recipe.difficulty}
-                        </li>
-                        <li className={styles.info__item}>
-                            Ingredients:
-                            <ul>
-                                {/* TODO: Unique key  */}
-                                {formattedIngredients?.map((el, index) => (
-                                    <li key={index}>{el}</li>
-                                ))}
-                            </ul>
-                        </li>
+            {error ? (
+                <NotFound />
+            ) : (
+                <div className={styles.card}>
+                    <h1 className={styles.card__title}>{recipe.title}</h1>
+                    <ul className={styles.recipe__data}>
+                        <li>{likesCount} Likes</li>
+                        <li>{disLikesCount} Dislikes</li>
+                        <li>{recipe.ratings?.length} Total Ratings</li>
+                        <li>{reviewsNum} Reviews</li>
                     </ul>
+                    <p className={styles.card__desc}>{recipe.description}</p>
+                    <div className={styles.card__author}>
+                        <img
+                            src={ownerImg}
+                            alt=""
+                            className={styles.author__image}
+                        />
+                        <p className={styles.author__info}>
+                            {recipe.ownerName}
+                        </p>
+                        {isOwner && (
+                            <Link to={`/recipes/edit/${recipeId}`}>Edit</Link>
+                        )}
+                        {isOwner && (
+                            <button onClick={showDeleteModal}>Delete</button>
+                        )}
+                        {!isRated?.length ? (
+                            <>
+                                {isAuthenticated && (
+                                    <button
+                                        onClick={() =>
+                                            recipeRatingHandler(true)
+                                        }
+                                    >
+                                        Like
+                                    </button>
+                                )}
+                                {isAuthenticated && (
+                                    <button
+                                        onClick={() =>
+                                            recipeRatingHandler(false)
+                                        }
+                                    >
+                                        Dislike
+                                    </button>
+                                )}
+                            </>
+                        ) : (
+                            <p>Thank you!</p>
+                        )}
+                    </div>
+                    <div className={styles.card__body}>
+                        <img
+                            src={recipe.imageUrl}
+                            alt=""
+                            className={styles.card__image}
+                        />
+                        <ul className={styles.card__info}>
+                            <li className={styles.info__item}>
+                                Cooking Time: {recipe.cookingTime} mins
+                            </li>
+                            <li className={styles.info__item}>
+                                Servings: {recipe.portions}
+                            </li>
+                            <li className={styles.info__item}>
+                                Difficulty: {recipe.difficulty}
+                            </li>
+                            <li className={styles.info__item}>
+                                Ingredients:
+                                <ul>
+                                    {/* TODO: Unique key  */}
+                                    {formattedIngredients?.map((el, index) => (
+                                        <li key={index}>{el}</li>
+                                    ))}
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            )}
         </section>
     );
 };

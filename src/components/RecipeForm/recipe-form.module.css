@@ -15,7 +15,9 @@
 .form__group textarea {
     padding: 10px 6px;
 }
-
+.input_error {
+    color: red;
+}
 .btn {
     width: 100%;
     background: #c5c3c3;

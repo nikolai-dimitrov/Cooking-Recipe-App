@@ -27,7 +27,7 @@
 }
 .auth__form .auth_error {
     color: red;
-    margin: 5px 0 0 0 ;
+    margin: 5px 0 0 0;
 }
 .register__form {
     display: grid;
@@ -76,7 +76,12 @@
 .btn:hover {
     color: #ca4b00 !important;
 }
-
+.err__msg {
+    color: red;
+}
+.disable {
+    cursor: not-allowed;
+}
 .item1 {
     grid-area: firstName;
 }

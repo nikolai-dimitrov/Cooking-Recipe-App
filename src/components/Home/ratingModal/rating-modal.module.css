@@ -1,0 +1,12 @@
+.rating__modal {
+    background-color: white;
+    padding: 10px 0px;
+    max-width: 350px;
+}
+
+.rating__container {
+    margin-right: 15px;
+}
+.rating__container i {
+    margin-right: 5px;
+}

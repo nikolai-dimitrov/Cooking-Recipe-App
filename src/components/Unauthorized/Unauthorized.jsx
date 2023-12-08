@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import styles from "./not-found.module.css";
-export const NotFound = () => {
+import styles from "./unauthorized.module.css";
+export const Unauthorized = () => {
     const navigate = useNavigate();
     
     const getPreviousPage = (e) => {
@@ -9,9 +9,9 @@ export const NotFound = () => {
     };
 
     return (
-        <section className={styles.not__found}>
+        <section className={styles.unauthorized}>
             <div className={styles.title__wrapper}>
-                <h1 className={styles.title}>Something went wrong!</h1>
+                <h1 className={styles.title}>You don't have permissions.</h1>
                 <button
                     className={styles.btn}
                     onClick={(e) => getPreviousPage(e)}

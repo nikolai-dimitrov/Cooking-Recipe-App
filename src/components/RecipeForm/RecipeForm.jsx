@@ -1,6 +1,5 @@
 import styles from "./recipe-form.module.css";
-import { useContext, useEffect } from "react";
-// import { RecipeContext } from "../../contexts/RecipeContext";
+import { useEffect } from "react";
 import { useForm } from "../../hooks/useForm";
 export const RecipeForm = ({
     btnName,
@@ -8,13 +7,14 @@ export const RecipeForm = ({
     formSubmitHandler,
     recipeId,
 }) => {
-    // const { recipeCreateHandler } = useContext(RecipeContext);
-
-    const { formValues, onChange, onSubmit, changeInitialValues } = useForm(
-        initialForm,
-        formSubmitHandler
-        // recipeCreateHandler
-    );
+    const {
+        formValues,
+        formErrors,
+        onChange,
+        onSubmit,
+        changeInitialValues,
+        validateInputHandler,
+    } = useForm(initialForm, formSubmitHandler);
 
     useEffect(() => {
         changeInitialValues(initialForm);
@@ -34,9 +34,12 @@ export const RecipeForm = ({
                     name="title"
                     placeholder="Spaghetti Bolognese"
                     onChange={onChange}
+                    onBlur={(e) => validateInputHandler(e, "recipe")}
                     value={formValues["title"]}
                 />
-                {/* <p className={styles.create_error}>Title should contain at least 8 characters</p> */}
+                {formErrors["title"] && (
+                    <p className={styles.input_error}>{formErrors["title"]}</p>
+                )}
             </div>
             <div className={styles.form__group}>
                 <label htmlFor="cookingTime">Cooking Time</label>
@@ -47,9 +50,14 @@ export const RecipeForm = ({
                     name="cookingTime"
                     placeholder="40"
                     onChange={onChange}
+                    onBlur={(e) => validateInputHandler(e, "recipe")}
                     value={formValues["cookingTime"]}
                 />
-                {/* <p className={styles.create_error}>Title should contain at least 8 characters</p> */}
+                {formErrors["cookingTime"] && (
+                    <p className={styles.input_error}>
+                        {formErrors["cookingTime"]}
+                    </p>
+                )}
             </div>
             <div className={styles.form__group}>
                 <label htmlFor="portions">Portions</label>
@@ -59,13 +67,19 @@ export const RecipeForm = ({
                     name="portions"
                     placeholder="4"
                     onChange={onChange}
+                    onBlur={(e) => validateInputHandler(e, "recipe")}
                     value={formValues["portions"]}
                 />
-                {/* <p className={styles.create_error}>Title should contain at least 8 characters</p> */}
+                {formErrors["portions"] && (
+                    <p className={styles.input_error}>
+                        {formErrors["portions"]}
+                    </p>
+                )}
             </div>
             <div className={styles.form__group}>
                 <label htmlFor="difficulty">Difficulty</label>
                 <select name="difficulty" id="difficulty" onChange={onChange}>
+                    {/* TODO: Show selected attribute ,not only Easy. */}
                     <option value="Easy">Easy</option>
                     <option value="Medium">Medium</option>
                     <option value="Hard">Hard</option>
@@ -79,9 +93,14 @@ export const RecipeForm = ({
                     name="imageUrl"
                     placeholder="https://example-image.com"
                     onChange={onChange}
+                    onBlur={(e) => validateInputHandler(e, "recipe")}
                     value={formValues["imageUrl"]}
                 />
-                {/* <p className={styles.create_error}>Title should contain at least 8 characters</p> */}
+                {formErrors["imageUrl"] && (
+                    <p className={styles.input_error}>
+                        {formErrors["imageUrl"]}
+                    </p>
+                )}
             </div>
             <div className={styles.form__group}>
                 <label htmlFor="ingredients">Ingredients</label>
@@ -89,11 +108,16 @@ export const RecipeForm = ({
                     type="text"
                     id="ingredients"
                     name="ingredients"
-                    placeholder="Tomatoes - 250g; Beef - 1/2 kilo; "
+                    placeholder="Tomatoes - 250g; Beef - 500g;"
                     onChange={onChange}
+                    onBlur={(e) => validateInputHandler(e, "recipe")}
                     value={formValues["ingredients"]}
                 ></textarea>
-                {/* <p className={styles.create_error}>Title should contain at least 8 characters</p> */}
+                {formErrors["ingredients"] && (
+                    <p className={styles.input_error}>
+                        {formErrors["ingredients"]}
+                    </p>
+                )}
             </div>
             <div className={styles.form__group}>
                 <label htmlFor="description">Description</label>
@@ -103,9 +127,14 @@ export const RecipeForm = ({
                     name="description"
                     placeholder="First you have to cut the onion..."
                     onChange={onChange}
+                    onBlur={(e) => validateInputHandler(e, "recipe")}
                     value={formValues["description"]}
                 ></textarea>
-                {/* <p className={styles.create_error}>Title should contain at least 8 characters</p> */}
+                {formErrors["description"] && (
+                    <p className={styles.input_error}>
+                        {formErrors["description"]}
+                    </p>
+                )}
             </div>
             <button className={styles.btn}>{btnName}</button>
         </form>

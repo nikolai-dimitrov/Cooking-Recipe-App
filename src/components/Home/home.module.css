@@ -1,0 +1,21 @@
+.home {
+}
+.home__row_wrapper {
+    padding: 20px;
+    background-color: #ffffffe8;
+    margin-bottom: 20px;
+}
+.row__title {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.card__wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+.home__row {
+    display: flex;
+    justify-content: space-around;
+}

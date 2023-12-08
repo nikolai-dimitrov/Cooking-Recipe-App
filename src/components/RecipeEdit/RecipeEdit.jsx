@@ -10,8 +10,6 @@ export const RecipeEdit = () => {
     const recipeService = recipeServiceFactory();
     const { recipeEditHandler } = useContext(RecipeContext);
     const [initialForm, setInitialForm] = useState({
-        //TODO: USE useFORM HOOK HERE AND THINK ABOUT to pass props in the form and HOW TO DO to reuse this initialForm? check!!!
-        //Initialized empty values because initially they are undefined and there is an error.
         title: "",
         cookingTime: "",
         portions: "",

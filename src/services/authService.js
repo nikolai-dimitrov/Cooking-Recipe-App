@@ -1,21 +1,53 @@
 const baseUrl = "http://localhost:3030/users";
+const profileImgUrl = "http://localhost:3030/data/profiles1";
 import { requestFactory } from "../utils/requester";
 export const authServiceFactory = () => {
     const request = requestFactory();
+    const login = async (data) => {
+        let result = await request.post(`${baseUrl}/login`, data);
+        return result;
+    };
+
+    const register = async (data) => {
+        let result = await request.post(`${baseUrl}/register`, data);
+        return result;
+    };
+
+    const logout = async () => {
+        const result = await request.get(`${baseUrl}/logout`);
+        return;
+    };
+
+    const getProfileImg = async (userId) => {
+        const searchQuery = encodeURIComponent(`_ownerId="${userId}"`);
+        const result = await request.get(
+            `${profileImgUrl}?where=${searchQuery}`
+        );
+        return result;
+    };
+
+    const updateUserPicture = async (pictureUrl, userId) => {
+        const data = {
+            pictureUrl,
+            userId,
+        };
+
+        const oldImage = await getProfileImg(userId);
+
+        if (oldImage.length > 0) {
+            let [image] = [...oldImage];
+            image = { ...image, pictureUrl };
+            const result = request.put(`${profileImgUrl}/${image._id}`, image);
+            return result;
+        }
+        const result = request.post(`${profileImgUrl}`, data);
+        return result;
+    };
     return {
-        login: async (data) => {
-            let result = await request.post(`${baseUrl}/login`, data);
-            return result;
-        },
-
-        register: async (data) => {
-            let result = await request.post(`${baseUrl}/register`, data);
-            return result;
-        },
-
-        logout: async () => {
-            const result = await request.get(`${baseUrl}/logout`);
-            return;
-        },
+        login,
+        register,
+        logout,
+        getProfileImg,
+        updateUserPicture,
     };
 };
