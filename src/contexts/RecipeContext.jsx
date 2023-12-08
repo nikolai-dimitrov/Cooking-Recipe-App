@@ -66,17 +66,15 @@ export const RecipeProvider = ({ children }) => {
     };
 
     const reviewsAlreadyViewedHandler = async (recipeId, userId) => {
-        try {
-            const hasReviewed = await reviewService.hasAlreadyReviewed(
-                recipeId,
-                userId
-            );
+        const hasReviewed = await reviewService.hasAlreadyReviewed(
+            recipeId,
+            userId
+        );
 
-            if (!hasReviewed) {
-                await reviewService.create(recipeId, userId);
-                return true;
-            }
-        } catch (err) {}
+        if (!hasReviewed) {
+            await reviewService.create(recipeId, userId);
+            return true;
+        }
     };
 
     const changePagesHandler = (e) => {

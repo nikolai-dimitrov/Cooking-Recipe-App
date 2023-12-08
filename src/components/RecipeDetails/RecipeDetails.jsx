@@ -30,14 +30,16 @@ export const RecipeDetails = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            const created = reviewsAlreadyViewedHandler(
-                recipeId,
-                user._id
-            ).then((created) => {
-                if (created) {
-                    setReviewsNum((state) => (state += 1));
-                }
-            });
+            const created = reviewsAlreadyViewedHandler(recipeId, user._id)
+                .then((created) => {
+                    if (created) {
+                        setReviewsNum((state) => (state += 1));
+                    }
+                    setError(null);
+                })
+                .catch((e) => {
+                    setError(e);
+                });
         }
         Promise.all([
             recipeService.getOne(recipeId),
@@ -72,11 +74,20 @@ export const RecipeDetails = () => {
     };
 
     const recipeRatingHandler = async (like) => {
-        const result = await ratingService.rateRecipe(recipeId, user._id, like);
-        setRecipe((state) => ({
-            ...state,
-            ratings: [...state.ratings, result],
-        }));
+        try {
+            const result = await ratingService.rateRecipe(
+                recipeId,
+                user._id,
+                like
+            );
+            setRecipe((state) => ({
+                ...state,
+                ratings: [...state.ratings, result],
+            }));
+            setError(null);
+        } catch (err) {
+            setError(err);
+        }
     };
 
     const isOwner = recipe._ownerId == user._id;
