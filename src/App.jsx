@@ -16,6 +16,10 @@ import { Logout } from "./components/Logout/Logout";
 import { Footer } from "./components/Footer/Footer";
 import { Unauthorized } from "./components/Unauthorized/Unauthorized";
 import { NotFound } from "./components/NotFound/NotFound";
+import {
+    AuthenticatedRouteGuard,
+    NotAuthenticatedRouteGuard,
+} from "./components/Common/RouteGuard";
 import "./App.css";
 
 function App() {
@@ -30,22 +34,58 @@ function App() {
                         {/* <Route path="/api-recipes" element={<Home />} /> */}
                         <Route
                             path="/recipes/create"
-                            element={<RecipeCreate />}
+                            element={
+                                <AuthenticatedRouteGuard>
+                                    <RecipeCreate />
+                                </AuthenticatedRouteGuard>
+                            }
                         />
                         <Route
                             path="/recipes/edit/:recipeId"
-                            element={<RecipeEdit />}
+                            element={
+                                <AuthenticatedRouteGuard>
+                                    <RecipeEdit />
+                                </AuthenticatedRouteGuard>
+                            }
                         />
                         <Route
                             path="/recipes/details/:recipeId"
                             element={<RecipeDetails />}
                         />
-                        <Route path="/profile" element={<Profile />} />
+                        <Route
+                            path="/profile"
+                            element={
+                                <AuthenticatedRouteGuard>
+                                    <Profile />
+                                </AuthenticatedRouteGuard>
+                            }
+                        />
                     </Route>
                     <Route path="/about-us" element={<About />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/logout" element={<Logout />} />
+                    <Route
+                        path="/login"
+                        element={
+                            <NotAuthenticatedRouteGuard>
+                                <Login />
+                            </NotAuthenticatedRouteGuard>
+                        }
+                    />
+                    <Route
+                        path="/register"
+                        element={
+                            <NotAuthenticatedRouteGuard>
+                                <Register />
+                            </NotAuthenticatedRouteGuard>
+                        }
+                    />
+                    <Route
+                        path="/logout"
+                        element={
+                            <AuthenticatedRouteGuard>
+                                <Logout />
+                            </AuthenticatedRouteGuard>
+                        }
+                    />
                     <Route path="/unauthorized" element={<Unauthorized />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
