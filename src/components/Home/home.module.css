@@ -1,4 +1,6 @@
 .home {
+    width: 85%;
+    margin: 0 auto;
 }
 .home__row_wrapper {
     padding: 20px;
