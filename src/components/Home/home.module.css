@@ -19,3 +19,6 @@
     display: flex;
     justify-content: space-around;
 }
+.full__height {
+    height: 70vh;
+}

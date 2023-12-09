@@ -26,10 +26,10 @@ export const Home = () => {
     }, []);
 
     return (
-        <section className={styles.home}>
+        <section className={recipes.length != 0?`${styles.home}`: `${styles.home} ${styles.full__height}`}>
             {error ? (
                 <NotFound />
-            ) : (
+            ) : recipes.length > 0 ? (
                 <>
                     <div className={styles.home__row_wrapper}>
                         <h1 className={styles.row__title}>
@@ -95,6 +95,12 @@ export const Home = () => {
                         </div>
                     </div>
                 </>
+            ) : (
+                <div className={styles.home__row_wrapper}>
+                    <h1 className={styles.row__title}>
+                        There aren't any recipes.
+                    </h1>
+                </div>
             )}
         </section>
     );

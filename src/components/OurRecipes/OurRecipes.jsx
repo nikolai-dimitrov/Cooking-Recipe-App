@@ -17,7 +17,13 @@ export const OurRecipes = () => {
     return (
         //
         <>
-            <section className={styles.recipes}>
+            <section
+                className={
+                    recipes.length > 9
+                        ? `${styles.recipes}`
+                        : `${styles.recipes} ${styles.viewportHeight}`
+                }
+            >
                 {recipes.map((el) => (
                     <Recipe key={el._id} {...el} />
                 ))}

@@ -29,3 +29,7 @@
     color: #ca4c00;
     padding: 5px 15px;
 }
+
+.viewportHeight {
+    height: 75vh;
+}
