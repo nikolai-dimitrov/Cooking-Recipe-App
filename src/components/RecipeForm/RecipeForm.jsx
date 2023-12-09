@@ -78,8 +78,12 @@ export const RecipeForm = ({
             </div>
             <div className={styles.form__group}>
                 <label htmlFor="difficulty">Difficulty</label>
-                <select name="difficulty" id="difficulty" onChange={onChange}>
-                    {/* TODO: Show selected attribute ,not only Easy. */}
+                <select
+                    name="difficulty"
+                    id="difficulty"
+                    onChange={onChange}
+                    value={formValues["difficulty"]}
+                >
                     <option value="Easy">Easy</option>
                     <option value="Medium">Medium</option>
                     <option value="Hard">Hard</option>
