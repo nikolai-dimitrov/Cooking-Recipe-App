@@ -28,3 +28,20 @@
 .delete__modal button:nth-last-of-type(1) {
     background-color: green;
 }
+
+@media (max-width: 1024px) {
+    .delete__modal {
+        width: 65%;
+    }
+}
+
+@media (max-width: 900px) {
+    .delete__modal {
+        width: 80%;
+    }
+}
+@media (max-width: 768px) {
+    .delete__modal {
+        width: 87%;
+    }
+}

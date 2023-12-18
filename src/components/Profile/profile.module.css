@@ -1,5 +1,5 @@
 .profile {
-    height: 75vh;
+    height: 71vh;
 }
 
 .card {
@@ -94,3 +94,16 @@
 .no__content {
     height: 85%;
 }
+@media (max-height: 768px) {
+    .profile {
+        height: 100%;
+    }
+}
+
+@media (max-width: 820px) {
+    .image__wrapper {
+        height: 100%;
+    }
+}
+
+

@@ -1,9 +1,9 @@
-/* .create {
-    height: 75vh;
-} */
+.create {
+    height: 71vh;
+}
 .container {
     width: 33%;
-    padding: 20px;
+    padding: 30px;
     border-radius: 6px;
     background: #ffffffd9;
     margin: 0 auto;
@@ -17,4 +17,22 @@
 .form__subtitle {
     margin-bottom: 20px;
     margin-left: 2px;
+}
+
+@media (max-height: 1024px) {
+    .create {
+        height: 100%;
+    }
+}
+
+@media (max-width: 835px) {
+    .container {
+        width: 60%;
+    }
+}
+
+@media (max-width: 450px) {
+    .container {
+        width: 100%;
+    }
 }

@@ -1,17 +1,30 @@
 export const validateRecipeForm = (event) => {
     const name = event.target.name;
-    const value = event.target.value.trim();
+    let value = event.target.value.trim();
     let err = {};
 
     if (name === "title" && value.length < 4) {
         err.title = "Title name should be more than 4 characters.";
     }
-    if (name === "cookingTime" && value <= 0) {
-        err.cookingTime = "Cooking Time should be positive.";
+
+    if (name === "cookingTime") {
+        let valueToNum = Number.parseInt(value);
+        if (valueToNum <= 0) {
+            err.cookingTime = "Cooking Time should be positive.";
+        } else if (isNaN(value)) {
+            err.cookingTime = "Cooking Time should be number.";
+        }
     }
-    if (name === "portions" && value <= 0) {
-        err.portions = "Portions should be positive.";
+
+    if (name === "portions") {
+        let valueToNum = Number.parseInt(value);
+        if (valueToNum <= 0) {
+            err.portions = "Portions should be positive.";
+        } else if (isNaN(valueToNum)) {
+            err.portions = "Portions should be number.";
+        }
     }
+
     if (
         name === "imageUrl" &&
         !value.includes("http://") &&
@@ -19,6 +32,7 @@ export const validateRecipeForm = (event) => {
     ) {
         err.imageUrl = "Image url should contain http:// or https://";
     }
+
     if (name === "ingredients") {
         let regex = /([A-Za-z0-9]+ - +[A-Za-z0-9]+;)/g;
         let matched = value.match(regex);
@@ -31,6 +45,7 @@ export const validateRecipeForm = (event) => {
             err.ingredients = "Example format: Beef - 200g; Tomatoes - 300g;";
         }
     }
+
     if (name === "description" && value.length < 10) {
         err.description = "Description should be more than 10 characters.";
     }

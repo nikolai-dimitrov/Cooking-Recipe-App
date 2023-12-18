@@ -24,3 +24,19 @@
 .full__height {
     height: 70vh;
 }
+@media (max-width: 880px) {
+    .home {
+        width: 100%;
+    }
+}
+
+@media (max-width: 450px) {
+    .home__row {
+        flex-direction: column;
+        align-items: center;
+        row-gap: 20px;
+    }
+    .card__wrapper {
+        width: 80%;
+    }
+}

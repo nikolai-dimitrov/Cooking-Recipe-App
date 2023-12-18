@@ -3,7 +3,16 @@ import { validateAuthForm } from "../utils/validateAuthForm";
 import { validateRecipeForm } from "../utils/validateRecipeForm";
 export const useForm = (initialState, submitHandler) => {
     const [formValues, setFormValues] = useState(initialState);
-    const [formErrors, setFormErrors] = useState(initialState); 
+    // const [formErrors, setFormErrors] = useState(initialState);
+    const [formErrors, setFormErrors] = useState(() => {
+        let formErrorsState = {};
+        if (initialState["difficulty"]) {
+            formErrorsState = initialState["difficulty"] = "";
+            return formErrorsState;
+        }
+        return initialState;
+    });
+
     const [disable, setDisable] = useState(true);
 
     const onChange = (event) => {
@@ -15,6 +24,28 @@ export const useForm = (initialState, submitHandler) => {
 
     const onSubmit = (event, id) => {
         event.preventDefault();
+        let initialEmptyFields = {};
+
+        Object.entries(formValues).map(([k, v]) => {
+            if (v == "" && k != "difficulty") {
+                return (initialEmptyFields[k] = "This field is required");
+            }
+        });
+
+        const emptyFieldsLen = Object.values(initialEmptyFields).length;
+        const errorsLen = Object.values(formErrors).filter(
+            (el) => el != ""
+        ).length;
+
+        setFormErrors((state) => ({
+            ...formErrors,
+            ...initialEmptyFields,
+        }));
+
+        if (errorsLen > 0 || emptyFieldsLen > 0) {
+            return;
+        }
+
         id ? submitHandler(formValues, id) : submitHandler(formValues);
     };
 
@@ -48,11 +79,20 @@ export const useForm = (initialState, submitHandler) => {
     return {
         formValues,
         formErrors,
-        disable, 
+        disable,
         onChange,
         onSubmit,
         changeInitialValues,
         validateInputHandler,
-        isReadyToSubmit, 
+        isReadyToSubmit,
     };
 };
+
+// if (initialEmptyFields) {
+//     setFormErrors((state) => ({
+//         ...formErrors,
+//         ...initialEmptyFields,
+//     }));
+//     console.log("here");
+//     return;
+// }

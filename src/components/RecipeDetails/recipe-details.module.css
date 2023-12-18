@@ -1,5 +1,5 @@
 .recipe {
-    /* background: #ffffffe8; */
+    height: 69vh;
     padding: 20px;
 }
 
@@ -57,8 +57,6 @@
     height: 30px;
     border-radius: 50%;
 }
-.author__info {
-}
 
 .card__body {
     display: flex;
@@ -90,4 +88,64 @@
 
 .info__item ul li {
     margin-bottom: 7px;
+}
+
+.changeVh {
+}
+
+@media (max-width: 1024px) {
+    .card {
+        width: 65%;
+    }
+}
+
+@media (max-height: 900px) {
+    .changeVh {
+        height: 100%;
+    }
+}
+
+@media (max-width: 900px) {
+    .card {
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 87%;
+    }
+}
+
+@media (max-width: 450px) {
+    .recipe {
+        padding: unset;
+        height: 100%;
+    }
+    .card {
+        width: 100%;
+    }
+    .card__body {
+        flex-direction: column;
+    }
+    .card__image {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .card__info {
+        width: 100%;
+    }
+    .card__author {
+        flex-direction: column;
+        row-gap: 10px;
+    }
+    .card__author button {
+        width: 100%;
+        padding: 10px 10px;
+    }
+    .card__author a {
+        padding: 10px 10px;
+        width: 100%;
+        text-align: center;
+    }
 }

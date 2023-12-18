@@ -103,7 +103,7 @@ export const RecipeDetails = () => {
         : [];
 
     return (
-        <section className={styles.recipe}>
+        <section className={showDeleteModal? `${styles.recipe} ${styles.changeVh}`:`${styles.recipe}`}>
             {showRecipeDelete && (
                 <RecipeDelete closeDeleteModal={closeDeleteModal} {...recipe} />
             )}

@@ -1,34 +1,34 @@
 .layout {
-    height: 80vh;
+    height: 71vh;
 }
+
 .login {
-    /* width: 45%;
-    margin: 0 auto;
-    background: white; */
     position: absolute;
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
 }
+
 .register {
     position: absolute;
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
 }
+
 .container {
-    /* width: 25%; */
     margin: 0 auto;
-    /* background: white; */
     background: #ffffffd9;
     padding: 20px;
     border-radius: 6px;
     max-width: 350px;
 }
+
 .auth__form .auth_error {
     color: red;
     margin: 5px 0 0 0;
 }
+
 .register__form {
     display: grid;
     column-gap: 20px;
@@ -41,9 +41,11 @@
         "anchor anchor"
         "btn btn";
 }
+
 .form__group {
     margin-bottom: 15px;
 }
+
 .form__group input {
     padding: 10px 6px;
     width: 100%;
@@ -52,18 +54,22 @@
 .form__group p a {
     margin-left: 5px;
 }
+
 .container h1 {
     color: black;
     font-size: 30px;
     margin-bottom: 5px;
 }
+
 .container p {
     padding-left: 2px;
     margin-bottom: 20px;
 }
+
 .form__group a {
     text-decoration: none;
 }
+
 .btn {
     width: 100%;
     background: #c5c3c3;
@@ -103,4 +109,38 @@
 }
 .item7 {
     grid-area: btn;
+}
+
+@media (max-width: 850px) {
+    .container {
+        max-width: 450px;
+        width: 450px;
+    }
+    .form__group input {
+        padding: 13px 6px;
+    }
+    .btn {
+        padding: 13px 10px;
+    }
+}
+
+@media (max-width: 450px) {
+    .login {
+        position: unset;
+        transform: unset;
+    }
+    .register {
+        position: unset;
+        transform: unset;
+    }
+    .container {
+        max-width: unset;
+        width: unset;
+    }
+    .form__group input {
+        padding: 13px 6px;
+    }
+    .btn {
+        padding: 13px 10px;
+    }
 }

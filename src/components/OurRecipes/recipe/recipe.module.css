@@ -65,3 +65,27 @@
     border: none;
     background: none;
 }
+
+@media (max-width: 1024px) {
+    .card {
+        width: 49%;
+    }
+}
+
+@media (max-width: 835px) {
+    .card {
+        width: 47%;
+    }
+}
+
+@media (max-width: 812px) {
+    .card__title {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 450px) {
+    .card {
+        width: 100%;
+    }
+}

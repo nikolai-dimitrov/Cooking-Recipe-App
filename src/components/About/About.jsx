@@ -3,7 +3,7 @@ import styles from "./about.module.css";
 export const About = () => {
     return (
         //
-        <>
+        <div className={styles.layout}>
             <section className={styles.favorite}>
                 <article className={styles.favorite__card}>
                     <h4 className={styles.card__title}>Your favorite salad</h4>
@@ -94,6 +94,6 @@ export const About = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </div>
     );
 };
