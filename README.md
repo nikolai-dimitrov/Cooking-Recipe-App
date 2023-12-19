@@ -59,7 +59,13 @@ node server.js
 
 1. Go to project's folder in terminal
 
--   Go to root folder named - 'cooking-recipe-app' in terminal
+-   Go to folder named - 'client' in terminal
+-   Than type the following command
+
+```
+npm install
+```
+
 -   Than type the following command
 
 ```
