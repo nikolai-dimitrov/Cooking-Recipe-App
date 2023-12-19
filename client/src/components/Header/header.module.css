@@ -64,3 +64,26 @@
 .active {
     color: #ca4b00 !important;
 }
+.flex_col {
+    flex-direction: column;
+}
+.mobile__nav_btn {
+    border: none;
+    padding: 17px 24px;
+}
+@media (max-width: 680px) {
+    .nav {
+        text-align: center;
+    }
+    .nav__list {
+        text-align: center;
+    }
+    .nav__item {
+        padding: 17px 24px;
+        border-bottom: 1px solid white;
+        width: 100%;
+    }
+    .nav__list .nav__item:last-child {
+        padding: unset;
+    }
+}
