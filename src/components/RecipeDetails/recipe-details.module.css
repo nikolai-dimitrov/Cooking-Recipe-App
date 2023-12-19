@@ -99,7 +99,7 @@
     }
 }
 
-@media (max-height: 900px) {
+@media (max-height: 860px) {
     .changeVh {
         height: 100%;
     }
