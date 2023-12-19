@@ -25,6 +25,8 @@
 
 ### This server provides just _*base functionality*_ to save your entries in JSON and retrieve them to perform CRUD operations. _*The server has very limited capabilities*_.
 
+### Because of server limitations i had to do things that are bad practices e.g fetch all recipes and all likes and reviews for each recipe on Home Page instead of send request for most rated and process it on the server.
+
 > **You can check some of them below**
 
 1. Doesn't persist any data after restart.
@@ -44,7 +46,7 @@ git clone https://github.com/nikolai-dimitrov/Cooking-Recipe-App.git
 
 1. Go to project's folder in terminal
 
--   Go to folder named 'server2' in terminal
+-   Go to folder named 'server' in terminal
 -   Than type the following command
 
 ```
