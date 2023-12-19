@@ -48,4 +48,4 @@ npm run dev
 2. ReactJS app running at port 5173
 3. App should be accessible at this url - **localhost:5173**
 
-(https://github.com/nikolai-dimitrov/Cooking-Recipe-App/blob/main/src/assets/screenshots/about-page.png)
+![](https://github.com/nikolai-dimitrov/Cooking-Recipe-App/blob/main/src/assets/screenshots/about-page.png)
