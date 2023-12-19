@@ -106,4 +106,36 @@
     }
 }
 
+@media (max-width: 500px) {
+    .profile {
+        height: unset;
+    }
+    .card {
+        flex-direction: column;
+        align-items: center;
+    }
+    .card__left {
+        height: 283px;
+        width: 85%;
+        max-width: unset;
+        border-radius: unset;
+    }
+    .card__right {
+        width: 85%;
+        border-radius: unset;
+    }
+    .card__info_wrapper {
+        flex-wrap: wrap;
+    }
+    .card__recipes .item {
+        width: 76%;
+    }
+    .card__info_wrapper p {
+        font-size: 20px;
+    }
+    .card__info_wrapper span {
+        font-size: 20px;
+    }
+}
+
 

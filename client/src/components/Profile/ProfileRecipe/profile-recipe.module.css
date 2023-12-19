@@ -16,3 +16,9 @@
 .desc__wrapper h4 {
     margin-bottom: 4px;
 }
+
+@media (max-width: 500px) {
+    .item {
+        width: 76%;
+    }
+}
