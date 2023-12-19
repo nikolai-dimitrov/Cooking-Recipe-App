@@ -67,7 +67,7 @@ npm run dev
 2. ReactJS app running at port 5173
 3. App should be accessible at this url - **localhost:5173**
 
-# App Screenshots and design
+# App Screenshots
 
 ## **_Responsive design is made for 1920x1080 and 1366x860 1024x768 Ipad Air(820x1180). It hasn't completed for all devices and all resolutions yet_**
 
