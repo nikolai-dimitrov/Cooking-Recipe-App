@@ -84,24 +84,24 @@ npm run dev
 1. Home Page there you can find most viewed , most liked, most disliked recipes.
 
 -   There you can check recipe likes by 'Show rating' button.
-    ![](https://github.com/nikolai-dimitrov/Cooking-Recipe-App/blob/main/src/assets/screenshots/home-page.png)
+    ![](https://github.com/nikolai-dimitrov/Cooking-Recipe-App/blob/main/screenshots/home-page.png)
 
 2. Details Recipe Page there you can find detailed description and image for specific recipe.
 
 -   You can like and dislike this recipe (Only once for each user).
 -   You can check recipe reviews.
 -   You can check recipe author.
-    ![](https://github.com/nikolai-dimitrov/Cooking-Recipe-App/blob/main/src/assets/screenshots/details-page.png)
+    ![](https://github.com/nikolai-dimitrov/Cooking-Recipe-App/blob/main/screenshots/details-page.png)
 
 3. Catalog Page there you can find all recipes posted on the site.
 
 -   You can use pagination button if there are more than 15 recipes on the server.
 -   You can find brief information about each recipe on the page.
-    ![](https://github.com/nikolai-dimitrov/Cooking-Recipe-App/blob/main/src/assets/screenshots/catalog-page.png)
+    ![](https://github.com/nikolai-dimitrov/Cooking-Recipe-App/blob/main/screenshots/catalog-page.png)
 
 4. Profile page there you can customize your profile picture.
 
 -   You can see all your posted recipes.
 -   You can change your profile avatar (Url).
 -   You can check how many reviews you have received on your recipes.
-    ![](https://github.com/nikolai-dimitrov/Cooking-Recipe-App/blob/main/src/assets/screenshots/profile-page.png)
+    ![](https://github.com/nikolai-dimitrov/Cooking-Recipe-App/blob/main/screenshots/profile-page.png)
