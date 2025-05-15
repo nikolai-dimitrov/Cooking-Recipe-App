@@ -1,10 +1,18 @@
-# Cooking Recipes App EXAMPLE project with ReactJS
+# **Cooking Recipes**
 
-> **This is my first ReactJS EXAMPLE TRAINING project using ReactJS (FrontEnd) and SoftUni Practice Server (BackEnd).Focus of the project is not design html & css but ReactJS basics**
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
+![Firebase](https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
 
-# Project description
+## **Summary**
 
-### Base project functionality is to share your cooking recipes with other people.There are two types of functionalities that you can check below
+### **This is my first react project, created for ReactJS course exam. Application is focused on practicing react base concepts like state, hooks, context api and routing.**
+
+## **[Live Demo]()**
+❗ **In Live Demo sometimes may be a delay with the data which is coming from the server, because the server is deployed in Render using a free plan**.
 
 1. Guest users functionality:
 
@@ -21,65 +29,55 @@
 -   User can change his profile picture in profile page.
 -   User can track information about his recipe's views in profile page.
 
-# Backend 'server' information
+# **Server**
 
-### This server provides just _*base functionality*_ to save your entries in JSON and retrieve them to perform CRUD operations. _*The server has very limited capabilities*_.
-
-### Because of server limitations i had to do things that are bad practices e.g fetch all recipes and all likes and reviews for each recipe on Home Page instead of send request for most rated and process it on the server.
-
-> **You can check some of them below**
+### This server provides just **base functionality** to save your entries in JSON and retrieve them to perform CRUD operations. _**The server has too limited capabilities**_.
 
 1. Doesn't persist any data after restart.
 2. Doesn't provide total count of entries in collections.
 3. If you aren't creator of the entry, server doesn't allow you to make changes.So you can't store likes, views etc as recipe property.
 4. Supports very few types of relations.
 
-# How to install this ReactJS project locally
+# **Getting started** 💻
 
-1. Clone this repository
+1. **Clone this repository**
 
 ```
 git clone https://github.com/nikolai-dimitrov/Cooking-Recipe-App.git
 ```
 
-## How to config the server
+2. **Run server**
 
-1. Go to project's folder in terminal
-
--   Go to folder named 'server' in terminal
--   Than type the following command
-
-```
-node server.js
-```
-
-2. Server running at port 3030
-
-## How to start the app
-
-1. Go to project's folder in terminal
-
--   Go to folder named - 'client' in terminal
--   Than type the following command
+-   Open new terminal ❗
+-   Navigate to project's folder 📂
+-   Navigate to folder named server 📂
+-   Than type the following command ⤵️
 
 ```
-npm install
+npm start ⬅️
 ```
 
--   Than type the following command
+3. **Run React App locally**
+
+-   Open new terminal❗
+-   Navigate to project's folder📂
+-   Navigate to folder named client 📂
+-   Than type the following commands⤵️
 
 ```
-npm run dev
+npm install ⬅️
+npm run dev ⬅️
 ```
 
-2. ReactJS app running at port 5173
-3. App should be accessible at this url - **localhost:5173**
+4. **Access the app via following URL** ✅
 
-# App Screenshots
+```
+localhost:5173 ⬅️
+```
+
+## **Screenshots**
 
 ## **_Responsive design is made for 1920x1080 and 1366x860 1024x768 Ipad Air(820x1180). It hasn't completed for all devices and all resolutions yet_**
-
-## When app is running app should look like images below
 
 1. Home Page there you can find most viewed , most liked, most disliked recipes.
 
