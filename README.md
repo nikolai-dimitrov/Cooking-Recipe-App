@@ -11,8 +11,11 @@
 
 ### **This is my first react project, created for ReactJS course exam. Application is focused on practicing react base concepts like state, hooks, context api and routing.**
 
-## **[Live Demo]()**
+## **[Live Demo](https://cookingrecipes-7ec27.web.app)**
 ❗ **In Live Demo sometimes may be a delay with the data which is coming from the server, because the server is deployed in Render using a free plan**.
+- **Instead of using your own email and password you can use there email and password.**
+    1. **Email: peter@abv.bg**
+    2. **Password: 123456**
 
 1. Guest users functionality:
 
