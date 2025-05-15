@@ -1,4 +1,5 @@
-const baseUrl = "http://localhost:3030/data/recipes";
+const baseUrl = `${import.meta.env.VITE_API_URL}/data/recipes`
+
 import * as stringFormatter from "../utils/stringFormatter";
 import { requestFactory } from "../utils/requester";
 export const recipeServiceFactory = () => {

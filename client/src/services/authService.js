@@ -1,5 +1,6 @@
-const baseUrl = "http://localhost:3030/users";
-const profileImgUrl = "http://localhost:3030/data/profiles1";
+const baseUrl = `${import.meta.env.VITE_API_URL}/users`
+const profileImgUrl = `${import.meta.env.VITE_API_URL}/data/profiles1`
+
 import { requestFactory } from "../utils/requester";
 export const authServiceFactory = () => {
     const request = requestFactory();

@@ -1,4 +1,5 @@
-const baseUrl = "http://localhost:3030/data/reviews5";
+const baseUrl = `${import.meta.env.VITE_API_URL}/data/reviews5`
+
 import { requestFactory } from "../utils/requester";
 export const reviewServiceFactory = () => {
     const request = requestFactory();
