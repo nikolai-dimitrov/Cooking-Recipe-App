@@ -13,13 +13,24 @@ export const RecipeProvider = ({ children }) => {
     const recipeService = recipeServiceFactory();
     const reviewService = reviewServiceFactory();
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+
     useEffect(() => {
+        const loadingTimeoutId = setTimeout(() => {
+            setIsLoading(true);
+        }, 300);
+
         recipeService
             .getRecipesPerPage(offSet)
             .then((result) => {
                 setRecipes(result);
+                clearTimeout(loadingTimeoutId);
+                setIsLoading(false);
             })
             .catch((error) => {
+                // redirect to 404 instead of clearing the timeout
+                // clearTimeout(loadingTimeoutId);
+                setIsLoading(false);
                 console.log(error);
             });
     }, [offSet]);
@@ -62,7 +73,7 @@ export const RecipeProvider = ({ children }) => {
             await recipeService.remove(recipeId);
             setRecipes((state) => state.filter((r) => r._id !== recipeId));
             navigate("/our-recipes");
-        } catch (err) {}
+        } catch (err) { }
     };
 
     const reviewsAlreadyViewedHandler = async (recipeId, userId) => {
@@ -98,6 +109,7 @@ export const RecipeProvider = ({ children }) => {
         lastPageHandler,
         recipes,
         offSet,
+        isLoading,
     };
 
     return (
