@@ -1,15 +1,12 @@
 .recipes {
     background: #ffffffe8;
-    /* height: 75vh; */
+    min-height: 75vh;
     position: relative;
-    /* padding: 20px; */
     padding: 55px 20px 55px 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /* align-items: baseline; */
     align-content: flex-start;
-    /* justify-content: space-between; */
     row-gap: 25px;
     column-gap: 25px;
 }
