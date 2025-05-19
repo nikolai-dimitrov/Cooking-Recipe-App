@@ -134,6 +134,7 @@ body {
 #main-content {
     padding: 56px 20px;
     position: relative;
+    min-height: 80vh;
     /* position relative !!! */
 }
 
